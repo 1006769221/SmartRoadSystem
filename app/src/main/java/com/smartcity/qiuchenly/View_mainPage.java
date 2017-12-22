@@ -174,6 +174,13 @@ public class View_mainPage extends BaseActivity implements iContentPageChanged,
         //委托事件处理类,处理侧滑菜单中的点击跳转页面事件
         fun_navigation_itemsSelect = new fun_navogation_itemSelect_K
                 (this, viewsTitles, this);
+
+        //修正非管理员情况下会出现的多余按钮显示问题
+        if (Utils.userInfo.isVIP.equals("1")) {
+            mUser_Manage_items_tools.setVisibility(View.VISIBLE);
+        } else {
+            mUser_Manage_items_tools.setVisibility(View.INVISIBLE);
+        }
     }
 
     fun_navogation_itemSelect_K fun_navigation_itemsSelect;
@@ -263,7 +270,7 @@ public class View_mainPage extends BaseActivity implements iContentPageChanged,
 
     @Override
     public TextView getContentTitleView(int position) {
-        if (position == 0) {
+        if (position == 0 && Utils.userInfo.isVIP.equals("1")) {
             mUser_Manage_items_tools.setVisibility(View.VISIBLE);
         } else {
             mUser_Manage_items_tools.setVisibility(View.INVISIBLE);
