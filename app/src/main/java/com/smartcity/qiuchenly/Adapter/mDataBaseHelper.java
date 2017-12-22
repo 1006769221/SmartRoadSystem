@@ -125,6 +125,7 @@ public class mDataBaseHelper extends SQLiteOpenHelper {
                 }
             }
         }
+        cursor.close();
         return users;
     }
 
@@ -140,8 +141,10 @@ public class mDataBaseHelper extends SQLiteOpenHelper {
         Cursor c = this.getReadableDatabase().rawQuery(get, null);
         if (c.moveToFirst()) {
             int a = c.getInt(0);
+            c.close();
             return a;
         }
+        c.close();
         return 0;
     }
 
@@ -153,13 +156,18 @@ public class mDataBaseHelper extends SQLiteOpenHelper {
         mDB.Execute(insert);
     }
 
+    public void mPay_History_DeleteItems(String id) {
+        String insert = "delete from " + PAY_HISTORY_NAME + " where id = " + id + ";";
+        mDB.Execute(insert);
+    }
+
 
     private static final String TAG = "mDataBaseHelper";
 
     public List<SQ_PayHistoryCursor> mQueryPayHistory() {
         String get = String.format("select * from %s", PAY_HISTORY_NAME);
         List<SQ_PayHistoryCursor> mList = new ArrayList<>();
-        Cursor cursor = mDB.getReadableDatabase().rawQuery(get, null);
+        Cursor cursor = getReadableDatabase().rawQuery(get, null);
 
         if (cursor.moveToFirst()) {
             for (; ; cursor.moveToNext()) {
