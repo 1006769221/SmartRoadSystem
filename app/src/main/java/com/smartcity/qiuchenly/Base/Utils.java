@@ -12,9 +12,12 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.view.View;
 
 import com.google.gson.Gson;
+import com.smartcity.qiuchenly.Adapter.mDataBaseHelper;
+import com.smartcity.qiuchenly.DataModel.userLoginCallBackModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -28,7 +31,6 @@ import java.util.List;
 
 public class Utils {
   public static boolean isTwiceOpen() {
-    ShareUtils.getSharePreferences(SharedContext.getContext());
     boolean is = ShareUtils.getBoolean("twiceOpen");
     if (!is) ShareUtils.put("twiceOpen", true);
     return is;
@@ -323,7 +325,30 @@ public class Utils {
     return a.fromJson(str, cx);
   }
 
-  public static int getMoneyLimitValue(){
-    return 10;
+  public static int getMoneyLimitValue() {
+    int v = ShareUtils.getInt("getMoneyLimitValue");
+    if (v < 0) {
+      return 50;
+    } else {
+      return v;
+    }
+  }
+
+  public static userLoginCallBackModel userInfo;
+
+  public static mDataBaseHelper dataBaseHelper;
+
+  private static final String DATABASE_NAME = "mDataBase.db";
+  private static final int DATABASE_VERSION = 1;
+
+  public static void mInitDataBase() {
+    if (dataBaseHelper == null) {
+      dataBaseHelper = new mDataBaseHelper(SharedContext.getContext(),
+              DATABASE_NAME, null, DATABASE_VERSION);
+    }
+  }
+
+  public static String getNowLoginUser() {
+    return Utils.userInfo.userName;
   }
 }

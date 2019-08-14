@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--android:screenOrientation="portrait"-->
+        <!--android:configChanges="orientation|keyboardHidden"-->
+
+
     </style>
 
     <style name="AppTheme.NoActionBar">

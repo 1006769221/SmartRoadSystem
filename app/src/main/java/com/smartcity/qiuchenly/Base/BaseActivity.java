@@ -1,12 +1,10 @@
 package com.smartcity.qiuchenly.Base;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -128,15 +126,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
   public <T> void go(Class<T> activity, final boolean allowFinish) {
     startActivity(new Intent(this, activity));
-    goAnimation();
     if (allowFinish) {
       finish();
     }
+    goAnimation();
   }
 
   public <T> void go(Class<T> activity, long delayMillis, final boolean allowFinish) {
     final Intent mIntent = new Intent(this, activity);
-
 
 //    handler.post(new Runnable() {
 //      @Override
@@ -154,6 +151,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
       }
     }, delayMillis);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
   }
 
   void goAnimation() {
